@@ -1,61 +1,6 @@
 import mechanicalsoup as ms
 
 import main_gub_utilities as ut
-    
-'''
-    req = Request(url, headers={'User-Agent': 'XYZ/3.0'})
-    with urlopen(req, timeout=10) as response:
-        body = response.read()
-    character_set = response.headers.get_content_charset()
-    print(character_set)
-    decoded_body = body.decode(character_set)
-    print(decoded_body)
-    
-    # Source - https://stackoverflow.com/a/61257791
-    # Posted by Jonny_P, modified by community. See post 'Timeline' for change history
-    # Retrieved 2026-02-14, License - CC BY-SA 4.0
-    
-    req = Request(url, headers={'User-Agent': 'XYZ/3.0'})
-    try:
-        response = urlopen(req, timeout=10)
-        status_code = response.status
-    except Exception as err:
-        print(err, status_code)
-        quit()
-    webpage = response.read()
-    print(webpage)
-    print()
-    soup = bs(response, "html.parser")
-    print('soup')
-    print(soup)
-    print()
-    selection = soup.find(tag, id= id)
-    print(selection)
-    print()
-    quit()
-    
-
-    
-    
-    response = requests.get(url, headers=hdrs)
-    
-    resp_txt = response.text
-    
-    print('response')
-    print(response.text)
-    print()
-    soup = bs(response.text, "html.parser")
-    print('soup')
-    print(soup)
-    print()
-    print('selection', tag, id)
-    selection = soup.find(tag, id= id)
-    print(selection)
-    print()
-    quit()
-    
-    return selection
-'''
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
