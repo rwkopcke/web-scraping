@@ -1,17 +1,32 @@
-# Exercises: Introduction to Web Scraping with Python
+# Introduction to Web Scraping with Python
+version = "Feb 14, 2026"
+
+<br></br>
+
+## I. Examples and Exercises
+### `uv run main.py`
 
 Practice
-- Parsing website data using string methods and regular expressions
-- Parsing website data using an HTML parser
-- Interacting with forms and other website components
-
-`uv run main.py`
+- Parsing website data using string methods, urllib
+- Parsing website data using BeautifulSoup4
+- Interacting with forms using MechanicalSoup
 
 Demonstrates ways to
 - scrape,
 - provide authentication, and
 - open links
 on static web pages
+
+<br></br>
+
+## II. Project: Scrape Web for Gubernatorial Race in ME 2026
+### `uv run main_gub_2026.py`
+
+https://mainemorningstar.com/race-details/2026-gubernatorial-election/
+
+<br></br>
+
+## III. References for Real Python learning path
 
 Course:
 https://realpython.com/courses/exercises-introduction-web-scraping/
@@ -23,6 +38,11 @@ Pages:
     - http://olympus.realpython.org/profiles/dionysus
 - Beautiful Soup
     - http://olympus.realpython.org/profiles
+
+https://realpython.com/urllib-request/
+https://docs.python.org/3/howto/urllib2.html
+https://www.scrapehero.com/scraping-with-python-urllib/
+ https://scrapeops.io/python-web-scraping-playbook/python-beautifulsoup-find/
 
 Also:
 ```

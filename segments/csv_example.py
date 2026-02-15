@@ -5,7 +5,7 @@ def read_csv_file():
         pass information to main.py as a list of lists
     '''
 
-    with open('employee_birthday.txt') as csv_file:
+    with open('io_main/employee_birthday.txt') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter= ',')
         line_count = 0
         for row in csv_reader:
@@ -18,7 +18,7 @@ def read_csv_file():
     print(f'Processed {line_count} lines.')
     print()
     
-    with open('employee_birthday.txt') as csv_file:
+    with open('io_main/employee_birthday.txt') as csv_file:
         csv_reader = csv.DictReader(csv_file, delimiter= ',')
         line_count = 0
         csv_file = []
@@ -40,7 +40,7 @@ def write_csv_file(csv_file):
     '''
         csv_file is a list of lists, with headers in row[0]
     '''
-    with open('employee_file.csv', mode= 'w') as employee_file:
+    with open('io_main/employee_file.csv', mode= 'w') as employee_file:
         employee_writer = csv.writer(employee_file,
                                      delimiter= ',',
                                      quotechar= '"',
@@ -58,7 +58,7 @@ def read_csv_file_2():
         pass information to main.py as a list of dicts
         with keys/headers in header_list
     '''
-    with open('employee_birthday.txt') as csv_file:
+    with open('io_main/employee_birthday.txt') as csv_file:
         csv_reader = csv.DictReader(csv_file, delimiter= ',')
         line_count = 0
         csv_file = []
@@ -79,7 +79,7 @@ def write_csv_file_2(csv_file, header_list):
     '''
         csv_file is a list of dicts with keys/headers in header_list
     '''
-    with open('employee_file_dict.csv', mode= 'w') as employee_file:
+    with open('io_main/employee_file_dict.csv', mode= 'w') as employee_file:
         employee_writer = csv.DictWriter(employee_file,
                                          fieldnames= header_list)
         

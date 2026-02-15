@@ -42,7 +42,7 @@ def find_card_info(url):
         of each <h2> title element that contains 'python'.
     '''
 
-    page = req_get(url)
+    page = req_get(url)  #requests.get(url)
 
     soup = bs(page.content, "html.parser")
     results = soup.find(id="ResultsContainer")

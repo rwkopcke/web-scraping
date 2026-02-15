@@ -44,7 +44,7 @@ def json_response(url):
         has_max_count = str(todo['userId']) in users
         return is_complete and has_max_count
     
-    with open('filtered_data_file.json', 'w') as data_file:
+    with open('io_main/filtered_data_file.json', 'w') as data_file:
         filtered_todos = list(filter(keep, todos))
         json.dump(filtered_todos, data_file, indent= 4)
         
@@ -120,7 +120,7 @@ def json_decode_custom_types():
             "imaginary": 36
         }
     
-    with open('complex_data.json', "w") as complex_data:
+    with open('io_main/complex_data.json', "w") as complex_data:
         json.dump(data, complex_data, indent= 4)
         
     
@@ -130,7 +130,7 @@ def json_decode_custom_types():
         else:
             return dct
         
-    with open('complex_data.json') as complex_data:
+    with open('io_main/complex_data.json') as complex_data:
         data = complex_data.read()
         z = json.loads(data, object_hook= decode_complex)
         
