@@ -1,4 +1,4 @@
-import mechanicalsoup as ms
+import polars as pl
 
 import main_gub_utilities as ut
 
@@ -17,47 +17,69 @@ headers = [
     'candidate',
     'party',
     'statement',
-    'home website',
-    'star website']
+    'websites']
 
 # full set of candidates' cards (the grid)
 tag = 'div'
 id = "electionRaceCandidateGrid"
 
-# card ids
-card_tag = 'div'
-card_class = "electionRaceCandidateCardContainer col-12 col-sm-6 col-lg-9 col-xl-6 mb-5"
-
 # candidates' details
-name_tag = 'h3'
-party_tag = 'p' 
-party_class = "electionRaceCandidateTitle mb-3"
-stmnt_tag = 'p'
-stmnt_class = "electionCandidateBlurb mb-0"
-web_tag = 'a'
-web_tag_href = 'href'
+candidate_details = {
+    'name_tag': 'h3',
+    'party_tag': 'p',
+    'party_class': "Title",
+    'web_tag': 'a',
+    'web_ref': 'href'
+}
 
+io_dir = 'io_gub'
+rel_path_decoded_html = io_dir + '/' + 'main_gub_2026'
+file_ext_decoded_html = '.html'
+rel_path_data = io_dir + '/' + 'main_gub_df_2026'
+file_ext_data = '.parquet'
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # +++++  scrape and parse the url
 
-resp_read, resp = ut.get_urllib_read_response(url, hdrs= hdrs)
+scrape = input('Scrape again, or read stored data?\n' +
+               'Enter yes or no: ')
 
-# find the grid of candidates' cards
-candidates_grid = ut.decode_and_find(resp_read, resp, tag, id)
-
-# crawl through the card grid, fetching candidates' names (22)
-candidate_names_lst = candidates_grid.find_all('h3')
-
-# create a generator of candidates' cards from their names
-candidate_cards = (
-    item.parent.parent for item in candidate_names_lst
-)
-
-candidate_array = \
-    ut.create_candidate_records(candidate_cards)
+if scrape in ['yes', 'Yes', 'YES', 'y', 'Y']:
     
+    # scrape new data
+    resp_read, resp = ut.get_urllib_read_response(url, hdrs= hdrs)
+    decoded_html = ut.decode_response(resp_read, resp)
+    # save
+    ut.write_decoded_html(decoded_html,
+                        rel_path_decoded_html,
+                        file_ext_decoded_html)
+
+else:
+    # read decoded_html from file
+    decoded_html = \
+        ut.read_decoded_html_file(io_dir, file_ext_decoded_html)
+
+# isolate candidate grid, then find list of names in grid
+candidate_names_lst = \
+    ut.filter_html(decoded_html, tag, id).find_all('h3')
+
+# create a generator of candidates' cards from their "names"
+candidate_cards = (
+    item.parent.parent for item in candidate_names_lst)
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# +++++  scrape each card for intormation
+# +++++  scrape each card for information
+# +++++  create & save candidate X candidate details array
 
+candidate_array = ut.create_candidate_records(
+                        candidate_cards,
+                        **candidate_details)
 
+candidate_df = pl.DataFrame(candidate_array,
+                            schema = headers,
+                            orient= 'row')
+print(candidate_df)
+
+ut.save_candidates(candidate_df,
+                   rel_path_data,
+                   file_ext_data)
