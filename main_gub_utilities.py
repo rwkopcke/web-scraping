@@ -6,10 +6,16 @@ from pathlib import Path
 from bs4 import BeautifulSoup as bs
 
 
+def now_string():
+    '''
+        Used to fetch current date for writing files
+    '''
+    return datetime.now().strftime("_%m_%d")
+
+
 def get_urllib_read_response(url, hdrs=None):
     '''
         Return urllib response.read() for parsing
-
     '''
     request = Request(url, headers=hdrs)
     try:
@@ -43,9 +49,8 @@ def write_decoded_html(body,
     '''
         Void return
     '''
-    now_string = datetime.now().strftime("_%m_%d")
     file_name = (rel_path_to_file +
-                 now_string + file_extension)
+                 now_string() + file_extension)
     
     with open(file_name, 'w') as to_file:
         to_file.write(body)
@@ -53,7 +58,9 @@ def write_decoded_html(body,
         
 def read_decoded_html_file(dir, file_ext):
     '''
-        Read stored decoded html 
+        Read stored decoded html
+        files in list are strings that
+            include relative path 
     '''
     files = [str(f) 
              for f in Path(dir).glob("*" + file_ext)]
@@ -137,8 +144,7 @@ def save_candidates(df,
     '''
         
     '''
-    now_string = datetime.now().strftime("_%m_%d")
-    file_addr = rel_path_to_file + now_string + file_ext
+    file_addr = rel_path_to_file + now_string() + file_ext
     with open(file_addr, 'w') as to_file:
         df.write_parquet(to_file)
     

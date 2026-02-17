@@ -26,7 +26,47 @@ https://mainemorningstar.com/race-details/2026-gubernatorial-election/
 
 <br></br>
 
-## III. References for Real Python learning path
+## III. Structure of Project
+
+```
+web-scraping % tree
+.
+├── io_gub
+│   ├── main_gub_2026_02_16.html
+│   └── main_gub_df_2026_02_16.parquet
+├── io_main
+│   ├── complex_data.json
+│   ├── employee_birthday.txt
+│   ├── employee_file_dict.csv
+│   ├── employee_file.csv
+│   └── filtered_data_file.json
+├── main_gub_2026.py
+├── main_gub_utilities.py
+├── main.py
+├── pyproject.toml
+├── README.md
+├── segments
+│   ├── __init__.py
+│   ├── bs4_example.py
+│   ├── csv_example.py
+│   ├── json_example.py
+│   └── urllib_example.py
+└── uv.lock
+
+web-scraping v16.2.2026
+├── beautifulsoup4 v4.14.3
+│   ├── soupsieve v2.8.3
+│   └── typing-extensions v4.15.0
+├── bs4 v0.0.2
+│   └── beautifulsoup4 v4.14.3 (*)
+└── polars v1.38.1
+    └── polars-runtime-32 v1.38.1
+(*) Package tree already displayed
+```
+
+<br></br>
+
+## IV. References for Real Python learning path and Notes
 
 Course:
 https://realpython.com/courses/exercises-introduction-web-scraping/
@@ -42,7 +82,7 @@ Pages:
 https://realpython.com/urllib-request/
 https://docs.python.org/3/howto/urllib2.html
 https://www.scrapehero.com/scraping-with-python-urllib/
- https://scrapeops.io/python-web-scraping-playbook/python-beautifulsoup-find/
+https://scrapeops.io/python-web-scraping-playbook/python-beautifulsoup-find/
 
 Also:
 ```
