@@ -75,7 +75,7 @@ wheels = [
 
 [[package]]
 name = "web-scraping"
-version = "16.2.2026"
+version = "23.2.2026"
 source = { virtual = "." }
 dependencies = [
     { name = "beautifulsoup4" },

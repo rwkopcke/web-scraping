@@ -1,5 +1,5 @@
 # Introduction to Web Scraping with Python
-version = "Feb 14, 2026"
+version: "February 23, 2026"
 
 <br></br>
 
@@ -19,7 +19,7 @@ on static web pages
 
 <br></br>
 
-## II. Project: Scrape Web for Gubernatorial Race in ME 2026
+## II. Scrape Web for Gubernatorial Race in ME 2026
 ### `uv run main_gub_2026.py`
 
 https://mainemorningstar.com/race-details/2026-gubernatorial-election/
@@ -32,8 +32,10 @@ https://mainemorningstar.com/race-details/2026-gubernatorial-election/
 web-scraping % tree
 .
 ├── io_gub
-│   ├── main_gub_2026_02_16.html
-│   └── main_gub_df_2026_02_16.parquet
+│   ├── main_gub_2026_02_23.html
+│   ├── main_gub_df_2026_02_23.csv
+│   ├── main_gub_df_2026_02_23.parquet
+│   └── main_gub_df_2026_02_23.txt
 ├── io_main
 │   ├── complex_data.json
 │   ├── employee_birthday.txt
@@ -53,7 +55,8 @@ web-scraping % tree
 │   └── urllib_example.py
 └── uv.lock
 
-web-scraping v16.2.2026
+% uv tree
+web-scraping v23.2.2026
 ├── beautifulsoup4 v4.14.3
 │   ├── soupsieve v2.8.3
 │   └── typing-extensions v4.15.0
@@ -62,6 +65,7 @@ web-scraping v16.2.2026
 └── polars v1.38.1
     └── polars-runtime-32 v1.38.1
 (*) Package tree already displayed
+
 ```
 
 <br></br>
@@ -83,33 +87,3 @@ https://realpython.com/urllib-request/
 https://docs.python.org/3/howto/urllib2.html
 https://www.scrapehero.com/scraping-with-python-urllib/
 https://scrapeops.io/python-web-scraping-playbook/python-beautifulsoup-find/
-
-Also:
-```
-import requests
-from bs4 import BeautifulSoup
-
-URL = "https://realpython.github.io/fake-jobs/"
-page = requests.get(URL)
-
-soup = BeautifulSoup(page.content, "html.parser")
-results = soup.find(id="ResultsContainer")
-
-python_jobs = results.find_all(
-    "h2", string=lambda text: "python" in text.lower()
-)
-
-python_job_cards = [
-    h2_element.parent.parent.parent for h2_element in python_jobs
-]
-
-for job_card in python_job_cards:
-    title_element = job_card.find("h2", class_="title")
-    company_element = job_card.find("h3", class_="company")
-    location_element = job_card.find("p", class_="location")
-    print(title_element.text.strip())
-    print(company_element.text.strip())
-    print(location_element.text.strip())
-    link_url = job_card.find_all("a")[1]["href"]
-    print(f"Apply here: {link_url}\n")
-```

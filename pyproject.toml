@@ -1,6 +1,6 @@
 [project]
 name = "web-scraping"
-version = "16.02.2026"
+version = "23.02.2026"
 description = "Projects for scraping the web"
 readme = "README.md"
 requires-python = ">=3.12.4"
