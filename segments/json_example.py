@@ -4,9 +4,7 @@ import json
 
 def json_response(url):
     '''
-    Docstring for json_response
-    
-    :param url: Description
+        
     '''
     # yields a serialized string obj
     response = requests.get(url)

@@ -4,6 +4,7 @@ from datetime import datetime
 from pathlib import Path
 
 from bs4 import BeautifulSoup as bs
+import polars as pl
 
 
 def now_string():
@@ -92,8 +93,8 @@ def filter_html(decoded_body, tag= None, id= None):
 
 def create_candidate_records(card_grid,
                              name_tag,
-                             party_tag,
-                             party_class,
+                             p_tag,
+                             title,
                              web_tag,
                              web_ref):
     '''
@@ -111,13 +112,13 @@ def create_candidate_records(card_grid,
         candidate = card.find(name_tag).text.strip()
         row.append(candidate)
         
-        # load party and statement
-        parags = card.find_all(party_tag)
+        # load party & statement, both marked with a p_tag
+        parags = card.find_all(p_tag)
         match len(parags):
             case 0:
                 lst = ['', '']
             case 1:
-                if party_class in parags[0]['class'][0]['class'][0]:
+                if title in parags[0]['class'][0]:
                     lst_0 = parags[0].text.strip()
                 else:
                     lst_0 = ''
@@ -149,3 +150,39 @@ def save_candidates(df,
         df.write_parquet(to_file)
     
     return
+
+
+def save_candidates_csv(candidate_df,
+                        header,
+                        rel_path_data):
+    '''
+        NB: csv format does not support nested data
+        so convert list of websites to a string
+        with elements separated by blanks
+        
+    '''
+    file_name = rel_path_data + now_string()
+    
+    # convert list of websites to string with websites separared by ' '
+    # then prepend and append to put string in square brackets
+    # name.keep() is needed because the literals otherwise would
+    # change the name of the column to literal
+    df = candidate_df\
+         .with_columns(
+            pl.col(header).list.join(' ')
+            )\
+         .with_columns(
+            ('[' + pl.col(header) + ']').name.keep()
+         )
+        
+    with open(file_name + '.csv', 'w') as out_file:
+            df.write_csv(out_file)
+    
+    # this writes the csv to a string
+    csv_string = df.write_csv()
+    
+    print(csv_string,  
+          file=open(file_name + '.txt', 'w'))
+    
+    return csv_string
+        

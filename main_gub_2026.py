@@ -26,8 +26,8 @@ id = "electionRaceCandidateGrid"
 # candidates' details
 candidate_details = {
     'name_tag': 'h3',
-    'party_tag': 'p',
-    'party_class': "Title",
+    'p_tag': 'p',
+    'title': "Title",
     'web_tag': 'a',
     'web_ref': 'href'
 }
@@ -41,18 +41,17 @@ file_ext_data = '.parquet'
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # +++++  scrape and parse the url
 
-scrape = input('Scrape again, or read stored data?\n' +
-               'Enter yes or no: ')
+scrape = input('Scrape again?\n' +
+               'Enter yes, or no to skip scraping: ')
 
 if scrape in ['yes', 'Yes', 'YES', 'y', 'Y']:
     
-    # scrape new data
+    # scrape and save new data
     resp_read, resp = ut.get_urllib_read_response(url, hdrs= hdrs)
     decoded_html = ut.decode_response(resp_read, resp)
-    # save
     ut.write_decoded_html(decoded_html,
-                        rel_path_decoded_html,
-                        file_ext_decoded_html)
+                          rel_path_decoded_html,
+                          file_ext_decoded_html)
 
 else:
     # read decoded_html from file
@@ -83,3 +82,8 @@ print(candidate_df)
 ut.save_candidates(candidate_df,
                    rel_path_data,
                    file_ext_data)
+
+csv_string = ut.save_candidates_csv(candidate_df,
+                                    headers[3],
+                                    rel_path_data)
+

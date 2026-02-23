@@ -82,10 +82,12 @@ def write_csv_file_2(csv_file, header_list):
     with open('io_main/employee_file_dict.csv', mode= 'w') as employee_file:
         employee_writer = csv.DictWriter(employee_file,
                                          fieldnames= header_list)
-        
+        # writes headers
         employee_writer.writeheader()
+        # writes csv_file, the input to this function
         for row in csv_file:
             employee_writer.writerow(row)
+        # 'manually' writes 
         employee_writer.writerow(
             {header_list[0]: 'John Smith', 
              header_list[1]: 'Accounting', 
